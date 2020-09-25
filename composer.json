@@ -1,0 +1,19 @@
+{
+  "name": "ciurkoj/social-links-plugin",
+  "description": "Social Media Plugin",
+  "type": "project",
+  "license": "GPL",
+  "authors": [
+    {
+      "name": "ciurkoj",
+      "email": "ciurkoj@outlook.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Includes\\": "./includes"
+    }
+  }
+}
