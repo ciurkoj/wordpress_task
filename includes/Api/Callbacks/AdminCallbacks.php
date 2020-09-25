@@ -132,4 +132,10 @@ class AdminCallbacks extends BaseController
         </select>';
 
     }
+    public function linkedinId()
+    {
+        $linkedin_account_id = esc_attr(get_option('linkedin_account_id'));
+        echo '<input type="text" class="regular-text" name="linkedin_account_id" value="' . $linkedin_account_id . '" placeholder="Enter account\'s url address">';
+
+    }
 }

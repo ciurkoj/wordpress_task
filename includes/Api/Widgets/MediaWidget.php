@@ -55,7 +55,7 @@ class MediaWidget extends WP_Widget
         $title = apply_filters('widget_title', $instance['title']);
         $text = $instance['text'];
         // The following variable is for a checkbox option type
-        $twitterOnOff = $instance['twitterOnOff'] ? 'true' : 'false';
+        // $twitterOnOff = $instance['twitterOnOff'] ? 'true' : 'false';
 
         echo $before_widget;
 
@@ -69,16 +69,23 @@ class MediaWidget extends WP_Widget
            
         ?>
             <?php endif;?>
+
             <?
-            if ('on' == $instance['twitterOnOff1']): ?><?
-            echo '<a href="' . ACCOUNT_URL . '" class="twitter-follow-button" data-size="' . WIDGET_SIZE . '" data-show-count="' . SHOW_COUNT . '">Follow ' . ACCOUNT_NAME . '</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>';
-            echo $args['before_widget'];
-        ?>
+            if ('on' == $instance['facebookOnOff']): ?><?
+            echo '<div class="fb-page" data-href="' . FB_ACCOUNT_URL . '" data-tabs="'.FB_SHOW_TIMELINE.'" data-width="" data-height="" data-small-header="'.FB_USE_SMALL_HEADER.'" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="eGF7j9vh"></script>';
+            ?>
 
             <?php endif;?>
             <?
-            echo '<div class="fb-page" data-href="' . FB_ACCOUNT_URL . '" data-tabs="'.FB_SHOW_TIMELINE.'" data-width="" data-height="" data-small-header="'.FB_USE_SMALL_HEADER.'" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="eGF7j9vh"></script>';
+            if ('on' == $instance['linkedinOnOff']): ?><?
+            echo '<script src="https://platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+<script type="IN/FollowCompany" data-id="'.LINKEDIN_ACCOUNT_ID.'" data-counter="bottom"></script>';
 ?>
+
+            <?php endif;?>
+
+
+
             <?php
 echo $after_widget;
     }
@@ -87,8 +94,10 @@ echo $after_widget;
     {
         $title = !empty($instance['title']) ? $instance['title'] : esc_html__("Enter Your Widget's Title", 'awps');
 
-        $defaults = array('title' => __('About Us', 'wptheme'), 'twitterOnOff' => 'off',
-            'twitterOnOff1' => 'off');
+        $defaults = array('title' => __('About Us', 'wptheme'), 
+            'twitterOnOff' => 'off',
+            'facebookOnOff' => 'off',
+            'linkedinOnOff' => 'off');
         $instance = wp_parse_args((array) $instance, $defaults); ?>
 
         <p>
@@ -104,8 +113,12 @@ echo $after_widget;
         <label for="<?php echo $this->get_field_id('twitterOnOff'); ?>">Show Twitter</label>
     </p>
     <p>
-        <input class="checkbox" type="checkbox" <?php checked($instance['twitterOnOff1'], 'on');?> id="<?php echo $this->get_field_id('twitterOnOff1'); ?>" name="<?php echo $this->get_field_name('twitterOnOff1'); ?>" />
-        <label for="<?php echo $this->get_field_id('twitterOnOff1'); ?>">Show Twitter1</label>
+        <input class="checkbox" type="checkbox" <?php checked($instance['facebookOnOff'], 'on');?> id="<?php echo $this->get_field_id('facebookOnOff'); ?>" name="<?php echo $this->get_field_name('facebookOnOff'); ?>" />
+        <label for="<?php echo $this->get_field_id('facebookOnOff'); ?>">Show Facebook</label>
+    </p>
+    <p>
+        <input class="checkbox" type="checkbox" <?php checked($instance['linkedinOnOff'], 'on');?> id="<?php echo $this->get_field_id('linkedinOnOff'); ?>" name="<?php echo $this->get_field_name('linkedinOnOff'); ?>" />
+        <label for="<?php echo $this->get_field_id('linkedinOnOff'); ?>">Show LinkedIn</label>
     </p>
 
 
@@ -120,7 +133,8 @@ echo $after_widget;
         $instance['title'] = strip_tags($new_instance['title']);
         // The update for the variable of the checkbox
         $instance['twitterOnOff'] = $new_instance['twitterOnOff'];
-        $instance['twitterOnOff1'] = $new_instance['twitterOnOff1'];
+        $instance['facebookOnOff'] = $new_instance['facebookOnOff'];
+        $instance['linkedinOnOff'] = $new_instance['linkedinOnOff'];
         return $instance;
         return $instance;
     }

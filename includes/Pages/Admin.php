@@ -143,6 +143,11 @@ class Admin extends BaseController
                 'option_name' => 'fb_show_timeline',
                 'callback' => array($this->callbacks, 'OptionsGroup'),
             ),
+            array(
+                "option_group" => 'linkedin_options_group',
+                'option_name' => 'linkedin_account_id',
+                'callback' => array($this->callbacks, 'OptionsGroup'),
+            ),
         );
 
         $this->settings->setSettings($args);
@@ -180,6 +185,12 @@ class Admin extends BaseController
                 'title' => 'Settings',
                 'callback' => array($this->callbacks, 'AdminSections'),
                 'page' => 'facebook_settings_page1',
+            ),
+            array(
+                'id' => 'admin_linkedin',
+                'title' => 'Settings',
+                'callback' => array($this->callbacks, 'AdminSections'),
+                'page' => 'linkedin_settings_page',
             ),
         );
 
@@ -293,9 +304,22 @@ class Admin extends BaseController
                     'class' => 'ui-toggle',
                 ),
             ),
+            array(
+                'id' => 'linkedin_account_id',
+                'title' => 'Your LinkedIn Account ID:',
+                'callback' => array($this->callbacks, 'linkedinId'),
+                'page' => 'linkedin_settings_page',
+                'section' => 'admin_linkedin',
+                'args' => array(
+                    'label_for' => 'linkedin_account_id',
+                    'class' => 'example-class',
+                ),
+
+            ),
         );
+        define('LINKEDIN_ACCOUNT_ID', esc_attr(get_option('linkedin_account_id')));
+        echo LINKEDIN_ACCOUNT_ID;
         define('FB_SHOW_TIMELINE', (get_option('fb_show_timeline') == 'timeline' ? "timeline" : "false"));
-        echo FB_SHOW_TIMELINE;
         define('FB_USE_SMALL_HEADER', (get_option('use_small_header') == 1 ? "true" : "false"));
         // var_dump(array($args));
         define('WIDGET_SIZE', $this->widget_size = esc_attr(get_option('widget_size')));

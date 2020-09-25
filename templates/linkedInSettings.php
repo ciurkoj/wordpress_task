@@ -5,7 +5,6 @@
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#tab-1">Account Data</a></li>
 		<li><a href="#tab-2">Plugin View</a></li>
-		<li><a href="#tab-3">LinkedIn</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -13,8 +12,8 @@
 
 			<form method="post" action="options.php">
 				<?php
-settings_fields('options_group');
-do_settings_sections('alecaddd_plugin');
+settings_fields('linkedin_options_group');
+do_settings_sections('linkedin_settings_page');
 submit_button();
 ?>
 			</form>
@@ -22,11 +21,9 @@ submit_button();
 		</div>
 
 		<div id="tab-2" class="tab-pane">
-			<h3>Facebook</h3>
+			<h3>Sorry, it's empty at the moment...</h3>
 		</div>
 
-		<div id="tab-3" class="tab-pane">
-			<h3>LinkedIn</h3>
-		</div>
+
 	</div>
 </div>
