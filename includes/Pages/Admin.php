@@ -19,6 +19,7 @@ class Admin extends BaseController
     public $settings;
     public $account_name;
     public $account_url;
+    public $fb_account_url;
     public $show_count;
     public $widget_size;
     public $callbacks;
@@ -128,9 +129,19 @@ class Admin extends BaseController
                 'callback' => array($this->callbacks_mngr, 'checkboxSanitize'),
             ),
             array(
-                'option_group' => 'options_group',
-                'option_name' => 'fb_manager',
+                "option_group" => 'facebook_options_group',
+                'option_name' => 'fb_account_url',
+                'callback' => array($this->callbacks, 'OptionsGroup'),
+            ),
+            array(
+                'option_group' => 'facebook_options_group1',
+                'option_name' => 'use_small_header',
                 'callback' => array($this->callbacks_mngr, 'checkboxSanitize'),
+            ),
+            array(
+                "option_group" => 'facebook_options_group1',
+                'option_name' => 'fb_show_timeline',
+                'callback' => array($this->callbacks, 'OptionsGroup'),
             ),
         );
 
@@ -162,7 +173,13 @@ class Admin extends BaseController
                 'id' => 'admin_facebook',
                 'title' => 'Settings',
                 'callback' => array($this->callbacks, 'AdminSections'),
-                'page' => 'facebook_plugin',
+                'page' => 'facebook_settings_page',
+            ),
+            array(
+                'id' => 'admin_facebook',
+                'title' => 'Settings',
+                'callback' => array($this->callbacks, 'AdminSections'),
+                'page' => 'facebook_settings_page1',
             ),
         );
 
@@ -220,7 +237,7 @@ class Admin extends BaseController
             ),
             array(
                 'id' => 'tw_manager',
-                'title' => 'Activate CPT Manager',
+                'title' => 'Just an empty checkbox',
                 'callback' => array($this->callbacks_mngr, 'checkboxField'),
                 'page' => 'twitter_settings_page',
                 'section' => 'admin_twitter',
@@ -232,14 +249,37 @@ class Admin extends BaseController
                 ),
             ),
             array(
-                'id' => 'fb_manager',
-                'title' => 'Activate CPT Manager',
-                'callback' => array($this->callbacks_mngr, 'checkboxField'),
-                'page' => 'facebook_plugin',
+                'id' => 'fb_account_url',
+                'title' => 'Account Url',
+                'callback' => array($this->callbacks, 'fbAccountUrl'),
+                'page' => 'facebook_settings_page',
                 'section' => 'admin_facebook',
                 'args' => array(
-                    'label_for' => 'fb_manager',
+                    'label_for' => 'fb_account_url',
+                    'class' => 'example-class',
+                ),
+
+            ),
+            array(
+                'id' => 'use_small_header',
+                'title' => 'Use Small Header',
+                'callback' => array($this->callbacks_mngr, 'checkboxField'),
+                'page' => 'facebook_settings_page1',
+                'section' => 'admin_facebook',
+                'args' => array(
+                    'label_for' => 'use_small_header',
                     'class' => 'ui-toggle',
+                ),
+            ),
+            array(
+                'id' => 'fb_show_timeline',
+                'title' => 'Show timeline:',
+                'callback' => array($this->callbacks, 'ShowTimeline'),
+                'page' => 'facebook_settings_page1',
+                'section' => 'admin_facebook',
+                'args' => array(
+                    'label_for' => 'fb_show_timeline',
+                    'class' => 'example-class',
                 ),
             ),
             array(
@@ -254,6 +294,9 @@ class Admin extends BaseController
                 ),
             ),
         );
+        define('FB_SHOW_TIMELINE', (get_option('fb_show_timeline') == 'timeline' ? "timeline" : "false"));
+        echo FB_SHOW_TIMELINE;
+        define('FB_USE_SMALL_HEADER', (get_option('use_small_header') == 1 ? "true" : "false"));
         // var_dump(array($args));
         define('WIDGET_SIZE', $this->widget_size = esc_attr(get_option('widget_size')));
         // echo WIDGET_SIZE;
@@ -264,6 +307,7 @@ class Admin extends BaseController
         define('ACCOUNT_URL', $this->account_url = get_option($args[1]['id']));
         // echo $this->account_url;
         // echo var_dump($args);
+        define('FB_ACCOUNT_URL', $this->fb_account_url = get_option('fb_account_url'));
         $this->settings->setFields($args);
     }
 }

@@ -76,8 +76,9 @@ class MediaWidget extends WP_Widget
         ?>
 
             <?php endif;?>
-
-
+            <?
+            echo '<div class="fb-page" data-href="' . FB_ACCOUNT_URL . '" data-tabs="'.FB_SHOW_TIMELINE.'" data-width="" data-height="" data-small-header="'.FB_USE_SMALL_HEADER.'" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0" nonce="eGF7j9vh"></script>';
+?>
             <?php
 echo $after_widget;
     }

@@ -71,6 +71,12 @@ class AdminCallbacks extends BaseController
         echo '<input type="text" class="regular-text" name="account_url" value="' . $value . '" placeholder="Enter account\'s url address">';
 
     }
+    public function fbAccountUrl()
+    {
+        $fb_account_url = esc_attr(get_option('fb_account_url'));
+        echo '<input type="text" class="regular-text" name="fb_account_url" value="' . $fb_account_url . '" placeholder="Enter account\'s url address">';
+
+    }
 
     public function WidgetSize()
     {
@@ -102,6 +108,25 @@ class AdminCallbacks extends BaseController
             Default
           </option>
           <option value="false" ' . ($show_count == 'false' ? 'selected' : '') . '>
+            Hidden
+          </option>
+        </select>';
+
+    }
+    public function ShowTimeline()
+    {
+        $fb_show_timeline = esc_attr(get_option('fb_show_timeline'));
+
+//  ' . ($show_count == 'false') ? 'selected' : '' . '
+        //' . ($show_count == 'default') ? 'selected' : '' . '
+        echo ' <select
+          class="widefat"
+          id="fb_show_timeline"
+          name="fb_show_timeline">
+          <option value="timeline" ' . ($fb_show_timeline == 'timeline' ? 'selected' : '') . '>
+            Timeline
+          </option>
+          <option value="false" ' . ($fb_show_timeline == 'false' ? 'selected' : '') . '>
             Hidden
           </option>
         </select>';
